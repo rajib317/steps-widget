@@ -8,6 +8,7 @@ const messages = [
 const steps = [1, 2, 3];
 export default function AudioParamMap() {
   const [step, setStep] = useState(1);
+  const [isOpen, setIsOpen] = useState(true);
   const changeStep = function () {
     if (this === 'prev')
       setStep((old) => {
@@ -19,31 +20,38 @@ export default function AudioParamMap() {
       });
   };
   return (
-    <div className='steps'>
-      <div className='numbers'>
-        {steps.map((s) => (
-          <div key={s} className={s === step ? 'active' : ''}>
-            {s}
+    <>
+      <button className='close' onClick={() => setIsOpen(!isOpen)}>
+        &times;
+      </button>
+      {isOpen && (
+        <div className='steps'>
+          <div className='numbers'>
+            {steps.map((s) => (
+              <div key={s} className={s === step ? 'active' : ''}>
+                {s}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <p className='message'>
-        Step {step} : {messages[step - 1]}
-      </p>
-      <div className='buttons'>
-        <button
-          style={{ backgroundColor: '#7950f2', color: '#fff' }}
-          onClick={changeStep.bind('prev')}
-        >
-          Previous
-        </button>
-        <button
-          style={{ backgroundColor: '#7950f2', color: '#fff' }}
-          onClick={changeStep.bind('next')}
-        >
-          Next
-        </button>
-      </div>
-    </div>
+          <p className='message'>
+            Step {step} : {messages[step - 1]}
+          </p>
+          <div className='buttons'>
+            <button
+              style={{ backgroundColor: '#7950f2', color: '#fff' }}
+              onClick={changeStep.bind('prev')}
+            >
+              Previous
+            </button>
+            <button
+              style={{ backgroundColor: '#7950f2', color: '#fff' }}
+              onClick={changeStep.bind('next')}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

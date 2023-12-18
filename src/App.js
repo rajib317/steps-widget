@@ -10,13 +10,14 @@ export default function AudioParamMap() {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(true);
   const changeStep = function () {
-    if (this === 'prev')
-      setStep((old) => {
-        return old === 1 ? steps[steps.length - 1] : step - 1;
+    if (this === 'prev') {
+      setStep((curr) => {
+        return curr === steps[0] ? steps[steps.length - 1] : curr - 1;
       });
+    }
     if (this === 'next')
-      setStep((old) => {
-        return old === steps[steps.length - 1] ? 1 : step + 1;
+      setStep((curr) => {
+        return curr === steps[steps.length - 1] ? steps[0] : curr + 1;
       });
   };
   return (
